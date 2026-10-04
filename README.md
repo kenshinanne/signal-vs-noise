@@ -12,7 +12,7 @@ Develop a small rule-based detection system that identifies suspicious activity 
 ## Specific Goals
 1. Collect or prepare normal and suspicious log data from authorized sources.
 2. Write a small set of Sigma detection rules (suspicious PowerShell activity, multiple failed logins, suspicious process execution).
-3. Run the rules with a detection tool (Hayabusa) and record the alerts.
+3. Run the rules with Hayabusa and record the alerts.
 4. Classify alerts as true positives or false positives.
 5. Tune the rules, rerun them, and measure the before/after difference.
 6. Present the results in a simple dashboard and an attack timeline.
@@ -29,4 +29,7 @@ Security Logs > Detection Rules > Detection Engine > Alerts > Alert Analysis > R
 All logs come from authorized public datasets or a controlled lab. No real systems are attacked.
 
 ## Status
-Week 1 (Oct 1-8): Research and setup in PROGRESS.
+- Week 1: Problem Identification & Research (done)
+- Week 2: Design & Initial Development (next)
+- Week 3: Further Development and Testing
+- Week 4: Final Project Submission
