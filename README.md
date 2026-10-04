@@ -29,4 +29,4 @@ Security Logs > Detection Rules > Detection Engine > Alerts > Alert Analysis > R
 All logs come from authorized public datasets or a controlled lab. No real systems are attacked.
 
 ## Status
-Week 1 (Oct 1-8): Research and setup in progress.
+Week 1 (Oct 1-8): Research and setup in PROGRESS.
