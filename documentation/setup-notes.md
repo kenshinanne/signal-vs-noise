@@ -11,7 +11,7 @@
 
 **Planned for later weeks:**
 - Sigma rules (I will write them in Week 2)
-- Streamlit and Plotly (for the dashboard, Weeks 3 to 4)
+- Streamlit and Plotly (first basic chart in Week 2, final dashboard in Week 4)
 
 ## What I Did
 - Installed Git on my Ubuntu VM and set up an SSH key for GitHub
