@@ -20,11 +20,11 @@ Results
 ## Steps I Plan to Follow
 
 1. **Prepare the logs.**
-
-   I will keep normal logs and attack logs in separate folders. I will write down where each log came from and what it is.
    
-3. **Write the rules.**
+   I will keep normal logs and attack logs in separate folders. I will write down where each log came from and what it is.
 
+3. **Write the rules.**
+   
    I will write a small number of Sigma rules that I understand.
    
 5. **Run the detection.**
@@ -42,7 +42,7 @@ Results
 11. **Run it again.**
     
     I will save the new alerts as my "after tuning" result.
-  
+    
 13. **Compare.**
     
     I will compare the before and after numbers.
@@ -59,9 +59,14 @@ Results
 I will write these in Week 2.
 
 ## Logs (planned)
-- **Attack logs:** public Windows event log samples made for testing detection tools.
-- **Normal logs:** I am still deciding the source. I will not upload logs that have personal information.
+- **Attack logs:** public Windows event log samples made for testing detection tools. Possible sources are EVTX-ATTACK-SAMPLES and Hayabusa's sample EVTX files. I will confirm in Week 2.
+- **Normal logs:** I am still deciding the source. It can be safe public sample logs, or logs I make myself in a Windows VM. I will not upload logs that have personal information.
 - I will write down the source and type of every log file.
+
+## Plan for the Next Weeks
+- **Week 2 (Oct 10-16), Design & Initial Development:** decide the normal logs, prepare the logs, write the 3 Sigma rules, run Hayabusa, save the before-tuning results, start checking the alerts, and make a first basic chart.
+- **Week 3 (Oct 17-23), Further Development and Testing:** find out why each alert happened, find the false positives, tune the rules, run again, compare before and after, and make one attack timeline.
+- **Week 4 (Oct 24-30), Final Project Submission:** final testing, final dashboard, clean GitHub, 2-page report, and 5-slide presentation. Oct 31 is for a last check.
 
 ## How I Will Measure Results
 I will count these numbers before and after tuning:
@@ -76,7 +81,8 @@ I will only use real numbers from my own tests.
 - I only analyze recorded logs. I do not attack any real system.
 - This is a small learning project. It is not a full SIEM, and it does not watch logs in real time.
 
-## Limits
+## Limits and Things to Check
 - Hayabusa only reads Windows event logs.
 - Public sample logs may not look like logs from a real company.
 - I have to check each alert myself.
+- I need to check how Hayabusa loads my own rules, and how to make the "many failed logins" rule.
