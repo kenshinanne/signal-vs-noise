@@ -1,4 +1,4 @@
-## 2. Research: Sigma
+## Research A: Sigma
 
 Sigma is a way of writing detection rules. A detection rule tells a security tool what suspicious activity to look for in logs. Sigma rules are written in YAML, which is just a simple text format that is easy to read. A group called SigmaHQ shares a big collection of free Sigma rules online.
 
