@@ -20,6 +20,12 @@ ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
 SHOTS = ROOT / "screenshots" / "week2"
 
+# Chart colors (soft pastel, minimalist)
+PINK = "#F4B6C2"
+GREEN = "#B5DCC2"
+TEXT = "#555555"
+LIGHT = "#DDDDDD"
+
 # Short, readable names for each rule file
 RULE_NAMES = {
     "ps-started.yml": "PowerShell Started",
@@ -32,11 +38,6 @@ LEVEL_FULL = {"info": "informational", "low": "low", "med": "medium",
               "high": "high", "crit": "critical", "emer": "emergency"}
 
 
-def full_level(row):
-    lvl = row["Level"].strip().lower()
-    return LEVEL_FULL.get(lvl, lvl)
-
-
 def read_rows(path):
     with open(path, encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))
@@ -44,6 +45,11 @@ def read_rows(path):
 
 def short_rule(row):
     return RULE_NAMES.get(row["RuleFile"], row["RuleTitle"])
+
+
+def full_level(row):
+    lvl = row["Level"].strip().lower()
+    return LEVEL_FULL.get(lvl, lvl)
 
 
 def sample_folder(evtx_path):
@@ -54,6 +60,30 @@ def sample_folder(evtx_path):
         if len(parts) > i + 2:
             return parts[i + 1]
     return "(other)"
+
+
+def style_axis(ax, title):
+    """Minimalist look: no top/right lines, light grid, soft gray text."""
+    ax.set_title(title, loc="left", fontsize=11, color=TEXT, pad=12)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    for side in ("left", "bottom"):
+        ax.spines[side].set_color(LIGHT)
+    ax.tick_params(colors=TEXT, labelsize=9, length=0)
+    ax.yaxis.grid(True, color="#EEEEEE", linewidth=0.8)
+    ax.set_axisbelow(True)
+
+
+def grouped_bars(ax, labels, a_vals, n_vals, title):
+    x = list(range(len(labels)))
+    w = 0.36
+    b1 = ax.bar([i - w / 2 for i in x], a_vals, w, color=PINK, label="Attack logs")
+    b2 = ax.bar([i + w / 2 for i in x], n_vals, w, color=GREEN, label="Normal logs")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.bar_label(b1, fontsize=8, color=TEXT, padding=2)
+    ax.bar_label(b2, fontsize=8, color=TEXT, padding=2)
+    style_axis(ax, title)
 
 
 def main():
@@ -100,30 +130,15 @@ def main():
             w.writerow([k, v])
 
     # 4) Chart: alerts per rule + alerts per severity
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.5))
-    x = range(len(rules))
-    w = 0.38
-    b1 = ax1.bar([i - w / 2 for i in x], [a_rule[r] for r in rules], w, label="Attack logs")
-    b2 = ax1.bar([i + w / 2 for i in x], [n_rule[r] for r in rules], w, label="Normal logs")
-    ax1.set_xticks(list(x))
-    ax1.set_xticklabels(rules, fontsize=9)
-    ax1.set_ylabel("Number of alerts")
-    ax1.set_title("Alerts per rule")
-    ax1.bar_label(b1, fontsize=8)
-    ax1.bar_label(b2, fontsize=8)
-    ax1.legend(fontsize=8)
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.6))
+    fig.patch.set_facecolor("white")
+    grouped_bars(ax1, rules, [a_rule[r] for r in rules], [n_rule[r] for r in rules], "Alerts per rule")
+    grouped_bars(ax2, levels, [a_lvl[l] for l in levels], [n_lvl[l] for l in levels], "Alerts per severity")
+    ax1.set_ylabel("Number of alerts", color=TEXT, fontsize=9)
+    ax1.legend(frameon=False, fontsize=9, labelcolor=TEXT)
 
-    xl = range(len(levels))
-    c1 = ax2.bar([i - w / 2 for i in xl], [a_lvl[l] for l in levels], w, label="Attack logs")
-    c2 = ax2.bar([i + w / 2 for i in xl], [n_lvl[l] for l in levels], w, label="Normal logs")
-    ax2.set_xticks(list(xl))
-    ax2.set_xticklabels(levels, fontsize=9)
-    ax2.set_title("Alerts per severity")
-    ax2.bar_label(c1, fontsize=8)
-    ax2.bar_label(c2, fontsize=8)
-
-    fig.suptitle(f"Signal vs. Noise: {stage.replace('-', ' ')} results", fontsize=12)
-    fig.tight_layout()
+    fig.suptitle(f"Signal vs. Noise  |  {stage.replace('-', ' ')}", fontsize=13, color=TEXT, x=0.06, ha="left")
+    fig.tight_layout(rect=(0, 0, 1, 0.94))
     SHOTS.mkdir(parents=True, exist_ok=True)
     out = SHOTS / f"{stage}-chart.png"
     fig.savefig(out, dpi=150)
