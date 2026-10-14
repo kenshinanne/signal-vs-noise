@@ -27,6 +27,14 @@ RULE_NAMES = {
     "user-folder-exec.yml": "Process From\nUser Folder",
 }
 LEVEL_ORDER = ["informational", "low", "medium", "high", "critical", "emergency"]
+# Hayabusa saves short level names in the CSV (like "med"), so turn them into full names
+LEVEL_FULL = {"info": "informational", "low": "low", "med": "medium",
+              "high": "high", "crit": "critical", "emer": "emergency"}
+
+
+def full_level(row):
+    lvl = row["Level"].strip().lower()
+    return LEVEL_FULL.get(lvl, lvl)
 
 
 def read_rows(path):
@@ -72,9 +80,10 @@ def main():
         w.writerow(["TOTAL", len(attack), len(normal)])
 
     # 2) Alerts per severity
-    a_lvl = Counter(r["Level"] for r in attack)
-    n_lvl = Counter(r["Level"] for r in normal)
+    a_lvl = Counter(full_level(r) for r in attack)
+    n_lvl = Counter(full_level(r) for r in normal)
     levels = [l for l in LEVEL_ORDER if a_lvl[l] or n_lvl[l]]
+    levels += sorted((set(a_lvl) | set(n_lvl)) - set(LEVEL_ORDER))  # keep any unexpected level too
     print(f"\n=== {stage}: alerts per severity ===")
     for l in levels:
         print(f"{l:<14}{a_lvl[l]:>8}{n_lvl[l]:>8}")
