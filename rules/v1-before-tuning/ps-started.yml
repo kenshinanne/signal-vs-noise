@@ -1,0 +1,29 @@
+author: Signal vs. Noise project
+date: 2026-10-14
+title: PowerShell Started (v1 broad)
+details: 'Image: %Image% ¦ CommandLine: %CommandLine% ¦ Parent: %ParentImage% ¦ User: %User%'
+description: |
+    First version of the rule. It alerts every time PowerShell starts.
+    It is broad on purpose, so I can measure the false positives before tuning.
+
+id: 1188be70-eacc-450d-9839-1f0ec3c23ae8
+level: medium
+status: experimental
+logsource:
+    product: windows
+    category: process_creation
+    definition: Sysmon needs to be installed.
+detection:
+    selection:
+        Channel: Microsoft-Windows-Sysmon/Operational
+        EventID: 1
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    condition: selection
+falsepositives:
+    - Admin scripts
+    - Software installers
+tags:
+    - attack.execution
+ruletype: Hayabusa

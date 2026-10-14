@@ -1,0 +1,25 @@
+author: Signal vs. Noise project
+date: 2026-10-14
+title: Admin Logon - Special Privileges Assigned (v1 broad)
+details: 'User: %SubjectUserName% ¦ Domain: %SubjectDomainName% ¦ Privileges: %PrivilegeList%'
+description: |
+    First version of the rule. It alerts on every logon that gets special (admin) privileges.
+    It is broad on purpose, so I can measure the false positives before tuning.
+
+id: 2c47da43-ae14-4199-9b23-c0237cece557
+level: low
+status: experimental
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        Channel: Security
+        EventID: 4672
+    condition: selection
+falsepositives:
+    - Normal admin logons
+    - System and service accounts
+tags:
+    - attack.privilege-escalation
+ruletype: Hayabusa
