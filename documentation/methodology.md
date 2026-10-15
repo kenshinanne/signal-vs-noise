@@ -4,7 +4,7 @@
 ```
 Security Logs
       v
-Detection Rules (Sigma)
+Detection Rules
       v
 Detection Engine (Hayabusa)
       v
@@ -17,72 +17,47 @@ Rule Tuning
 Results
 ```
 
-## Steps I Plan to Follow
+## Steps
+1. Prepare the logs (done in Week 2)
+2. Write the rules (version 1 done in Week 2)
+3. Run the detection and save the before-tuning results (done in Week 2)
+4. Check the alerts as true or false positives (done for the attack logs in Week 2)
+5. Tune the rules that give too many false alerts (Week 3)
+6. Run it again and save the after-tuning results (Week 3)
+7. Compare before and after (Week 3)
+8. Show the results in a dashboard and an attack timeline (Weeks 3 and 4)
 
-1. **Prepare the logs.**
-   
-   I will keep normal logs and attack logs in separate folders. I will write down where each log came from and what it is.
+## Logs
+- Attack logs: EVTX-ATTACK-SAMPLES, 278 files
+- Normal logs: evtx-baseline, Logs_Client folder, 352 files
+- The log files are not in this repo. The sources are in logs/SOURCES.md.
 
-3. **Write the rules.**
-   
-   I will write a small number of Sigma rules that I understand.
-   
-5. **Run the detection.**
-   
-   I will use Hayabusa to check the logs with my rules and save the alerts. This is my "before tuning" result.
-   
-7. **Check the alerts.**
-   
-   I will look at each alert and decide if it is a true positive or a false positive, and write the reason.
-   
-9. **Tune the rules.**
-    
-    I will change the rules that give too many false alerts so they are more exact.
-   
-11. **Run it again.**
-    
-    I will save the new alerts as my "after tuning" result.
-    
-13. **Compare.**
-    
-    I will compare the before and after numbers.
-    
-15. **Show the results.**
-    
-    I will make a simple dashboard and an attack timeline.
+## Rules (version 1)
+1. PowerShell Started: any PowerShell process start
+2. Admin Logon: any logon with special privileges
+3. Process From User Folder: a program started from a user-writable folder
 
-## First Detection Rules (planned)
-1. Suspicious PowerShell activity
-2. Multiple failed login attempts
-3. Suspicious process execution
+The rules are in rules/v1-before-tuning. They are broad on purpose. In Week 3, I will change them based on the false positives I find. Hayabusa does not use the logsource part of a rule, so my rules write the log name and event ID in the detection part.
 
-I will write these in Week 2.
-
-## Logs (planned)
-- **Attack logs:** public Windows event log samples made for testing detection tools. Possible sources are EVTX-ATTACK-SAMPLES and Hayabusa's sample EVTX files. I will confirm in Week 2.
-- **Normal logs:** I am still deciding the source. It can be safe public sample logs, or logs I make myself in a Windows VM. I will not upload logs that have personal information.
-- I will write down the source and type of every log file.
-
-## Plan for the Next Weeks
-- **Week 2 (Oct 10-16), Design & Initial Development:** decide the normal logs, prepare the logs, write the 3 Sigma rules, run Hayabusa, save the before-tuning results, start checking the alerts, and make a first basic chart.
-- **Week 3 (Oct 17-23), Further Development and Testing:** find out why each alert happened, find the false positives, tune the rules, run again, compare before and after, and make one attack timeline.
-- **Week 4 (Oct 24-30), Final Project Submission:** final testing, final dashboard, clean GitHub, 2-page report, and 5-slide presentation. Oct 31 is for a last check.
-
-## How I Will Measure Results
-I will count these numbers before and after tuning:
+## How I measure results
+I count these numbers before and after tuning:
 - Total alerts
 - False positives
-- Relevant detections (true positives)
+- True positives (relevant detections)
 - How much the false positives went down
 
-I will only use real numbers from my own tests.
+All numbers come from my own runs. A Python script (scripts/summarize_results.py) counts the alerts and makes the chart. Another script (scripts/classify_alerts.py) applies my true/false positive decisions.
 
-## Scope and Safety
+## Scope and safety
 - I only analyze recorded logs. I do not attack any real system.
 - This is a small learning project. It is not a full SIEM, and it does not watch logs in real time.
 
-## Limits and Things to Check
+## Limits
 - Hayabusa only reads Windows event logs.
-- Public sample logs may not look like logs from a real company.
-- I have to check each alert myself.
-- I need to check how Hayabusa loads my own rules, and how to make the "many failed logins" rule.
+- The normal logs come from one or two machines over about two days.
+- I count all alerts on the normal logs as false positives, because they come from clean systems.
+- I labeled the attack alerts myself, so some labels could be wrong.
+
+## Plan for the next weeks
+- **Week 3 (Oct 17-23):** find out why each noisy alert happened, tune the rules, run again, compare before and after, and make one attack timeline.
+- **Week 4 (Oct 24-30):** final testing, final dashboard, clean GitHub, 2-page report, and 5-slide presentation. Oct 31 is for a last check.
