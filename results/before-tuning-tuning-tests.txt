@@ -1,0 +1,21 @@
+=== before-tuning: testing tuning ideas ===
+normal removed = false alarms that go away | TP lost = real detections that would be missed
+
+--- PowerShell Started: normal 5 | attack 16 (TP 16, FP 0, unclear 0) ---
+idea                                                       normal removed  TP lost FP removed unclear
+P1 skip parents Dropbox.exe, Code.exe, Setup32.exe                5 of 5      0/16      0/0      0/0
+P2 only alert on suspicious command-line options                  3 of 5      8/16      0/0      0/0
+COMBINED (all ideas that lose no true positives)                  5 of 5      0/16      0/0      0/0
+
+--- Admin Logon: normal 266 | attack 22 (TP 13, FP 5, unclear 4) ---
+idea                                                       normal removed  TP lost FP removed unclear
+A1 skip system accounts (SID S-1-5-18/19/20, DWM, UMFD)         254 of 266    0/13      5/5      4/4
+
+--- Process From User Folder: normal 188 | attack 39 (TP 36, FP 3, unclear 0) ---
+idea                                                       normal removed  TP lost FP removed unclear
+B1 skip the Windows Defender platform folder                     15 of 188    0/36      0/3      0/0
+B2 skip OneDrive, Spotify, Foxit, Google Update folders          26 of 188    0/36      3/3      0/0
+B3 skip Inno Setup installer folders (Temp\is-*.tmp)             70 of 188    0/36      0/3      0/0
+B4 skip Opera installer folders                                  10 of 188    0/36      0/3      0/0
+B5 skip programs started by Ninite.exe or target.tmp            102 of 188    0/36      0/3      0/0
+COMBINED (all ideas that lose no true positives)                166 of 188    0/36      3/3      0/0

@@ -1,0 +1,53 @@
+=== before-tuning: patterns in the 459 alerts on the normal logs ===
+
+--- Admin Logon: 266 alerts ---
+Machine accounts (name ends with $): 0
+System accounts (SYSTEM, LOCAL SERVICE, NETWORK SERVICE, DWM-, UMFD-): 254
+Other accounts: 12
+Top accounts (count, user, domain):
+   224  SYSTEM  |  NT AUTHORITY
+    14  DWM-1  |  Window Manager
+     9  user  |  DESKTOP-A8CALR3
+     7  NETWORK SERVICE  |  NT AUTHORITY
+     7  LOCAL SERVICE  |  NT AUTHORITY
+     3  defaultuser0  |  DESKTOP-A8CALR3
+     2  DWM-2  |  Window Manager
+
+--- Process From User Folder: 188 alerts ---
+Top programs (count, path):
+    53  C:\Users\<USER>\AppData\Local\Temp\is-LSRFQ.tmp\SetUserFTA.exe
+    15  C:\Users\<USER>\AppData\Roaming\Spotify\Spotify.exe
+    11  C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2111.5-0\MpCmdRun.exe
+     7  C:\Users\<USER>\AppData\Local\Temp\0cb1bbbb-88d4-11ec-89b1-080027dfe1cd\Ninite.exe
+     4  C:\Users\<USER>\AppData\Local\Temp\104AB9~2\target.exe
+     4  emp\.opera\Opera Installer Temp\opera_package_202202081242101\assistant\assistant_installer.exe
+     3  C:\Users\<USER>\AppData\Local\Microsoft\OneDrive\OneDrive.exe
+     2  C:\Users\<USER>\AppData\Local\Temp\75D097~1\target.exe
+     2  C:\Users\<USER>\AppData\Local\Temp\9EC479~1\dropboxex.exe
+     2  C:\Windows\Temp\.opera\8D91583AECBF\installer.exe
+     2  C:\Users\<USER>\AppData\Roaming\Foxit Software\Addon\Foxit PDF Reader\FoxitPDFReaderUpdater.exe
+     2  C:\Users\<USER>\AppData\Local\Microsoft\OneDrive\Update\OneDriveSetup.exe
+     2  C:\Windows\Temp\.opera\70C190B61B03\installer.exe
+     1  C:\Users\<USER>\AppData\Local\Temp\104AB9~1\target.exe
+     1  C:\Users\<USER>\AppData\Local\Temp\7zS459C07D5\setup.exe
+     1  C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2111.5-0\MpCopyAccelerator.exe
+     1  C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2111.5-0\X86\MpCmdRun.exe
+     1  C:\Users\<USER>\AppData\Local\Temp\.opera\Opera Installer Temp\target.exe
+     1  p\.opera\Opera Installer Temp\opera_package_202202081242101\assistant\assistant_package_sfx.exe
+     1  C:\Program Files (x86)\Google\Temp\GUM226A.tmp\GoogleUpdate.exe
+Top parent programs (count, name):
+    57  target.tmp
+    45  Ninite.exe
+    31  target.exe
+    12  Spotify.exe
+     8  MsMpEng.exe
+     4  svchost.exe
+     4  launcher.exe
+     4  explorer.exe
+
+--- PowerShell Started: 5 alerts ---
+  C:\Windows\System32\WindowsPowerShell\v1.0\powershell "Get-AppxPackage C27EB4BA.  |  parent: 6)\Dropbox\Client_141.4.3299\Dropbox.exe
+  C:\Windows\System32\WindowsPowerShell\v1.0\powershell "Get-AppxProvisionedPackag  |  parent: 6)\Dropbox\Client_141.4.3299\Dropbox.exe
+  "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInter  |  parent: E:\Office\Setup32.exe
+  "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -NonInter  |  parent: E:\Office\Setup32.exe
+  C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe  |  parent: Program Files\Microsoft VS Code\Code.exe

@@ -1,0 +1,5 @@
+rule,attack_alerts,normal_alerts
+Admin Logon,13,12
+PowerShell Started,16,0
+Process From User Folder,36,22
+TOTAL,65,34

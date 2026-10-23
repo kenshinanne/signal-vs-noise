@@ -1,0 +1,58 @@
+author: Signal vs. Noise project
+date: 2026-10-23
+title: Process From User-Writable Folder (v2 tuned)
+details: 'Image: %Image% | CommandLine: %CommandLine% | Parent: %ParentImage% | User: %User%'
+description: |
+    Tuned version of the user folder rule.
+    Skips common installers and auto-updaters.
+    Still checks other programs running from user-writable folders.
+
+id: 7ad2d891-796f-437d-a25b-42456176f527
+level: medium
+status: experimental
+logsource:
+    product: windows
+    category: process_creation
+    definition: Sysmon needs to be installed.
+detection:
+    selection:
+        Channel: Microsoft-Windows-Sysmon/Operational
+        EventID: 1
+        Image|contains:
+            - '\AppData\'
+            - '\Temp\'
+            - '\Users\Public\'
+            - '\ProgramData\'
+
+    filter_defender:
+        Image|contains:
+            - '\ProgramData\Microsoft\Windows Defender\'
+
+    filter_updaters:
+        Image|contains:
+            - '\AppData\Local\Microsoft\OneDrive\'
+            - '\AppData\Roaming\Spotify\'
+            - '\Foxit Software\'
+            - '\Google\Temp\'
+
+    filter_inno:
+        Image|re|i: '\\temp\\is-[^\\]+\.tmp\\'
+
+    filter_opera:
+        Image|contains:
+            - '\.opera\'
+            - 'opera installer temp'
+
+    filter_ninite:
+        ParentImage|endswith:
+            - '\Ninite.exe'
+            - '\target.tmp'
+
+    condition: selection and not filter_defender and not filter_updaters and not filter_inno and not filter_opera and not filter_ninite
+
+falsepositives:
+    - Other software installers
+    - Other auto-updaters
+tags:
+    - attack.execution
+ruletype: Hayabusa

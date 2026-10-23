@@ -1,0 +1,34 @@
+author: Signal vs. Noise project
+date: 2026-10-23
+title: Admin Logon - Special Privileges Assigned (v2 tuned)
+details: 'User: %SubjectUserName% | Domain: %SubjectDomainName% | Privileges: %PrivilegeList%'
+description: |
+    Tuned version of the admin logon rule.
+    Skips common system accounts to reduce false alarms.
+    Still checks other logons with special privileges.
+
+id: 2c47da43-ae14-4199-9b23-c0237cece557
+level: low
+status: experimental
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        Channel: Security
+        EventID: 4672
+    filter_system:
+        SubjectUserSid:
+            - 'S-1-5-18'
+            - 'S-1-5-19'
+            - 'S-1-5-20'
+    filter_desktop:
+        SubjectUserSid|startswith:
+            - 'S-1-5-90-'
+            - 'S-1-5-96-'
+    condition: selection and not filter_system and not filter_desktop
+falsepositives:
+    - Normal admin logons
+tags:
+    - attack.privilege-escalation
+ruletype: Hayabusa

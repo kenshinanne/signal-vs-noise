@@ -1,0 +1,10 @@
+sample_folder,attack_alerts
+Privilege Escalation,17
+Lateral Movement,11
+AutomatedTestingTools,11
+Execution,7
+Defense Evasion,6
+Credential Access,5
+Persistence,4
+Command and Control,3
+Other,1

@@ -1,0 +1,5 @@
+rule,true_positives,false_positives_attack_logs,unclear,false_positives_normal_logs,false_positives_total
+Admin Logon,13,0,0,12,12
+PowerShell Started,16,0,0,0,0
+Process From User Folder,36,0,0,22,22
+TOTAL,65,0,0,34,34

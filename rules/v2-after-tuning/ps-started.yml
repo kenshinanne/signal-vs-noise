@@ -1,0 +1,35 @@
+author: Signal vs. Noise project
+date: 2026-10-23
+title: PowerShell Started (v2 tuned)
+details: 'Image: %Image% | CommandLine: %CommandLine% | Parent: %ParentImage% | User: %User%'
+description: |
+    Tuned version of the PowerShell rule.
+    Skips common software that starts PowerShell.
+    Still detects other PowerShell activity.
+
+id: 1183be70-eacc-450d-9839-1f0ec3c23ae8
+level: medium
+status: experimental
+logsource:
+    product: windows
+    category: process_creation
+    definition: Sysmon needs to be installed.
+detection:
+    selection:
+        Channel: Microsoft-Windows-Sysmon/Operational
+        EventID: 1
+        Image|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    filter_parents:
+        ParentImage|endswith:
+            - '\Dropbox.exe'
+            - '\Code.exe'
+            - '\Setup32.exe'
+    condition: selection and not filter_parents
+falsepositives:
+    - Admin scripts
+    - Software installers
+tags:
+    - attack.execution
+ruletype: Hayabusa
