@@ -31,5 +31,5 @@ All logs come from authorized public datasets or a controlled lab. No real syste
 ## Status
 - Week 1: Problem Identification & Research (done)
 - Week 2: Design & Initial Development (done)
-- Week 3: Further Development and Testing (next)
-- Week 4: Final Project Submission
+- Week 3: Further Development and Testing (done)
+- Week 4: Final Project Submission (next)
