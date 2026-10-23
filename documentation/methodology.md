@@ -59,5 +59,4 @@ All numbers come from my own runs. A Python script (scripts/summarize_results.py
 - I labeled the attack alerts myself, so some labels could be wrong.
 
 ## Plan for the next weeks
-- **Week 3 (Oct 17-23):** find out why each noisy alert happened, tune the rules, run again, compare before and after, and make one attack timeline.
 - **Week 4 (Oct 24-30):** final testing, final dashboard, clean GitHub, 2-page report, and 5-slide presentation. Oct 31 is for a last check.
