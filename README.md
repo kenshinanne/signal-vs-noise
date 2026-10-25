@@ -97,7 +97,7 @@ Open `http://localhost:8501` in a browser.
 - Week 1: Problem Identification & Research (done)
 - Week 2: Design & Initial Development (done)
 - Week 3: Further Development and Testing (done)
-- Week 4: Final Dashboard and Submission (in progress)
+- Week 4: Final Dashboard and Submission (done)
 
 ## Ethics
 All logs came from public datasets or authorized sources. No real systems were attacked.
