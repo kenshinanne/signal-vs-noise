@@ -79,3 +79,37 @@ October 17-23
 - Write the 2-page final report
 - Create the 5-slide presentation
 - Review the project files and prepare the final output
+
+## Week 4: Final Development and Presentation
+October 24-30
+
+**Completed so far:**
+- Created an interactive dashboard using Streamlit and Plotly
+- Used pastel pink and green charts to show the project results
+- Added the false-positive reduction, true-positive counts, and alert comparisons
+- Added an interactive chart showing the results of each detection rule
+- Included the attack timeline in the dashboard
+- Tested the dashboard on my Ubuntu VM
+- Saved screenshots of the dashboard
+- Uploaded the dashboard code and screenshots to GitHub
+- Prepared the 5-slide PowerPoint presentation
+- Wrote the 2-page project report
+- Updated the README with the final results and dashboard instructions
+
+**Final Results:**
+- Normal alerts decreased from 459 to 34
+- Attack alerts decreased from 77 to 65
+- False positives decreased from 467 to 34 (92.7% reduction)
+- All 65 previously identified true positives were retained
+- Created a dashboard to display the results
+
+**Challenges:**
+- Had to learn how to use Streamlit and Plotly
+- Some chart labels were hard to read, so I changed the text colors
+- Adjusted the dashboard design to match my previous charts
+- Had to shorten the project report to fit the 2-page requirement
+
+**Remaining Tasks:**
+- Review the final PowerPoint and project report
+- Check the GitHub repository for missing files
+- Prepare and submit the final requirements
